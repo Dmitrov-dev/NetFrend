@@ -1,7 +1,8 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import App from "./pages/home/App";
-import { Layout } from "./app/layout/Layout";
-import { MovieDetails } from "./entities/movie/movieDetails/MovieDetails";
+import App from "../../pages/home/MainPage";
+import { Layout } from "../../app/layout/Layout";
+import { MovieDetails } from "../../entities/movie/MovieDetails/MovieDetails";
+
 
 export function MainRoutes() {
   return (

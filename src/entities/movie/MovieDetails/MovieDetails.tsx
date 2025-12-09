@@ -1,35 +1,54 @@
-import { lazy, Suspense, useMemo } from "react"
-import { useParams } from "react-router-dom"
-import { useSelector } from "react-redux"
+import { lazy, Suspense, useMemo, useRef } from "react";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-// Предполагаемая структура состояния и фильма
+
 interface Movie {
-  image: string
-  name: string
-  trailerRutubeId: string
-  // добавьте все нужные поля
+  image: string;
+  name: string;
+  trailerRutubeId: string;
 }
 
 interface RootState {
-  products: Movie[]
+  products: Movie[];
 }
 
 const LazyMovieComments = lazy(() =>
   import('./MovieComments').then(c => ({ default: c.MovieComments }))
-)
+);
 
 export function MovieDetails() {
-  const { id } = useParams<{ id: string }>()
-  // Сообщаем useSelector правильный тип состояния
-  const products = useSelector((state: RootState) => state.products)
+  const { id } = useParams<{ id: string }>();
+  const products = useSelector((state: RootState) => state.products);
 
-  // Явная типизация movie
+  // Реф для хранения предыдущего результата
+  const previousMemoRef = useRef<Movie | null>(null);
+  const previousProductsRef = useRef<Movie[]>([]);
+
   const movie = useMemo(() => {
-    return products.find(movie => movie.trailerRutubeId === id)
-  }, [products, id])
+    const foundMovie = products.find(movie => movie.trailerRutubeId === id);
+
+    // Глубокое сравнение предыдущего состояния
+    if (
+      previousMemoRef.current &&
+      previousProductsRef.current === products &&
+      previousMemoRef.current.trailerRutubeId === foundMovie?.trailerRutubeId
+    ) {
+      // Если совпадает, возвращаем предыдущее значение
+      return previousMemoRef.current;
+    }
+
+    // Иначе обновляем рефы
+    previousMemoRef.current = foundMovie || null;
+    previousProductsRef.current = products;
+
+    return foundMovie;
+  }, [products, id]);
 
   if (!movie)
-    return <p className="text-center mt-10 text-gray-300">Фильм не найден 😡(ಥ﹏ಥ)😡 </p>
+    return (
+      <p className="text-center mt-10 text-gray-300">Фильм не найден 😡(ಥ﹏ಥ)😡</p>
+    );
 
   return (
     <div>
@@ -42,8 +61,8 @@ export function MovieDetails() {
       <h2 className="text-sm text-gray-300">{movie.name}</h2>
       <p className="text-gray-300 text-sm"> ОПИСАНИЕ</p>
       <Suspense fallback={<div>Загрузка епта...</div>}>
-        <LazyMovieComments />
+        <LazyMovieComments/>
       </Suspense>
     </div>
-  )
+  );
 }

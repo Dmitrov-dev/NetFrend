@@ -2,10 +2,10 @@ import { memo, useCallback, useState } from "react";
 import { Link } from "react-router-dom";
 import FavoriteButton from "../../../pages/home/FavoriteButton";
 import { Modal } from "../../../components/ui/Modal";
-import { IMovie } from "./movie.interface";
+import { Movie } from "../../../product/productsSlice";
 
 interface Props {
-    movie: IMovie
+  movie: Movie;
 }
 
  function MovieCard({ movie }: Props ) {

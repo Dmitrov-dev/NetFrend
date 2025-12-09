@@ -4,8 +4,7 @@ import { memo, useEffect, useState } from "react"
     const [isFavorite, setIsFavorite] = useState(false)
 
     useEffect(() => {
-        console.log('Сосотояние поменялось')
-    }, [isFavorite])
+}, [isFavorite])
 
     return <button onClick={() => setIsFavorite(!isFavorite)}>
         {isFavorite ? '❤️' : '🤍'}

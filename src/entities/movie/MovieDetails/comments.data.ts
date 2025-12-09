@@ -1,8 +1,8 @@
-import type { Icomment } from "./comment.interface"
+import { Comment } from '../types/types'
 
-export const COMMENTS: Icomment[] = [
+export const COMMENTS: Comment[] = [
     {
-        id: 1,
+        id: 'bQa6DUPI8L',
         name: 'Grisha',
         text: 'Люблю сочных корейцев и их сладкие попки'
     },

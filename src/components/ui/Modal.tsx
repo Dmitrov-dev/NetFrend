@@ -1,18 +1,19 @@
-import { type PropsWithChildren, useEffect } from "react";
+import { type PropsWithChildren, useCallback, useEffect } from "react";
 import { createPortal } from "react-dom";
 
 interface Props extends PropsWithChildren{
   onClose: () => void
 }
 
-export function Modal({ children, onClose }: Props) {
+export function Modal({ children, onClose}: Props) {
+  const handlEsc = useCallback((e: KeyboardEvent) => {
+    if(e.key === 'Escape') onClose();
+  }, [onClose])
+
   useEffect(() => {
-    const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
-    };
-    window.addEventListener('keydown', handleEsc);
-    return () => window.removeEventListener('keydown', handleEsc);
-  }, [onClose]);
+    window.addEventListener('keydown', handlEsc);
+    return() => window.removeEventListener('keydown', handlEsc)
+  }, [handlEsc])
 
   return createPortal(
     <div

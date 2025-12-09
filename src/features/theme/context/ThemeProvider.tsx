@@ -4,7 +4,7 @@ import { ThemeContext, type ThemeType } from "./theme.context";
 
 
 export function ThemeProvider({children}: PropsWithChildren){
-    const [theme, setTheme] = useState<ThemeType>(() => localStorage.getItem('theme') as ThemeType || 'dark')
+    const [theme, setTheme] = useState<ThemeType>(() => localStorage.getItem('theme') as ThemeType ?? 'dark')
 
     useEffect(() => {
         document.documentElement.classList.toggle('dark', theme === 'dark')
