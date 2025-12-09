@@ -6,8 +6,9 @@ export type Movie = {
   image: string;
   rating: number;
   trailerRutubeId: string;
-  id: 1;
+  id: number;
 };
+
 const productSlice = createSlice({
     name: 'products',
     initialState,
