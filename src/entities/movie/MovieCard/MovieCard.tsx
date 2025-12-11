@@ -21,8 +21,7 @@ interface Props {
                 <Modal
                     onClose={() => {
                         setIsOpenTrailer(false);
-                    }}
-                >
+                    }}>
                     <iframe
                         width="560"
                         height="315"

@@ -36,4 +36,5 @@ export const initialState= [
         rating: 6.8,
         trailerRutubeId: '5'
     },
+
 ]

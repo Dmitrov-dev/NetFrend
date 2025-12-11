@@ -10,7 +10,7 @@ function App() {
   return (
     <div className={`min-h-screen min-w-screen h-screen w-screen overflow-hidden px-6 py-5 ${theme === 'dark' ? 'bg-black text-white' : 'bg-white text-black'}`}>
       <Header />
-      <SliderFilm />
+      <SliderFilm searchTerm={''} />
     </div>
   )
 }
